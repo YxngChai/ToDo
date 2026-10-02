@@ -26,21 +26,22 @@
   <body>
     <div class="container min-vh-100 d-flex align-items-center">
       <div class="container">
-        <div class="row">
-          <div class="col-10"></div>
-          <div class="col-1" style="border: 1px solid black">All</div>
-          <div class="col-1" style="border: 1px solid black">Completed</div>
+        <div class="row ">
+          <div class="col"></div>
+          <div class="col-1 p-0" ><button type="button" class="btn btn-info w-100 rounded-top-4 rounded-bottom-0">All</button></div>
+          <div class="col-1 p-0" ><button type="button" class="btn btn-success w-100  rounded-top-4 rounded-bottom-0">Completed</button></div>
+          <div class="col-1 p-0" ><button type="button"  class="btn btn-warning w-100  rounded-top-4 rounded-bottom-0">Remaining</button></div>
         </div>
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col-9" style="border: 1px solid black">user input</div>
-          <div class="col-2" style="border: 1px solid black">Add</div>
+        <div class="row" style="border: 1px solid black">
+          <div class="col-1 p-0 bg-primary"></div>
+          <div class="col-9 p-0 bg-primary" ><form type="button" action="" method="GET"><input type="search"></form></div>
+          <div class="col-2 p-0" ><button type="button" class="btn btn-info w-100 rounded-0">Add</button></div>
         </div>
-        <div class="row">
-          <div class="col-1" style="border: 1px solid black">checkbox</div>
-          <div class="col" style="border: 1px solid black">Thing to do</div>
-          <div class="col-1" style="border: 1px solid black">Edit</div>
-          <div class="col-1" style="border: 1px solid black">Delete</div>
+        <div class="row" style="border: 1px solid black">
+          <div class="col-1 p-0 bg-info" ><form action=""><input type="checkbox"></form></div>
+          <div class="col b p-0 bg-light" ><p  class="mb-0 w-100">do this do that</p></div>
+          <div class="col-1 p-0" style><button type="button" class="btn btn-info  w-100 rounded-0">Edit</button></div>
+          <div class="col-1 p-0" ><button type="button" class="btn btn-danger  w-100 rounded-0">Delete</button></div>
         </div>
       </div>
     </div>
