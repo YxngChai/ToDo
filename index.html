@@ -29,9 +29,9 @@
         <!-- Filters -->
         <nav class="row ">
           <div class="col"></div>
-          <div class="col-3  col-md-2 col-xxl-1 p-0" ><button type="button" class="btn btn-dark w-100 rounded-top-4 rounded-bottom-0 border border-secondary border-bottom-0">All</button></div>
-          <div class="col-3 col-md-2 col-xxl-1 p-0" ><button type="button"  class="btn btn-warning w-100 rounded-top-4 rounded-bottom-0 border border-secondary border-bottom-0">Active</button></div>
-          <div class="col-3 col-md-2 col-xxl-1 p-0" ><button type="button" class="btn btn-success w-100 rounded-top-4 rounded-bottom-0 border border-secondary border-bottom-0">Completed</button></div>
+          <div class="col-3 col-md-2 col-xxl-1 p-0 d-flex align-items-end" ><button type="button" class="js-selected btn btn-dark w-100 rounded-top-4 rounded-bottom-0 border border-secondary border-bottom-0 py-2">All</button></div>
+          <div class="col-3 col-md-2 col-xxl-1 p-0 d-flex align-items-end" ><button type="button"  class="btn btn-warning w-100 rounded-top-4 rounded-bottom-0 border border-secondary border-bottom-0 ">Active</button></div>
+          <div class="col-3 col-md-2 col-xxl-1 p-0 d-flex align-items-end" ><button type="button" class="btn btn-success w-100 rounded-top-4 rounded-bottom-0 border border-secondary border-bottom-0">Completed</button></div>
         </nav>
 
         <!-- Enter new row -->
@@ -43,15 +43,15 @@
         </div>
 
         <!-- List Rows -->
-        <div class="row border border-black border-top-0">
-          <div class="col-2 col-sm-1 p-2 bg-secondary-subtle d-flex justify-content-center align-items-center" ><button class="btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-          <div class="col p-0 bg-light" ><p  class="mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center">do this do that</p></div>
+        <div class="row bg-light border border-black border-top-0 js-active">
+          <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
+          <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">do this do that</p></div>
           <div class="col-2 col-lg-1 p-0" style><button type="button" class="btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
           <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
         </div>
-        <div class="row border border-black border-top-0">
-          <div class="col-2 col-sm-1 p-2 bg-dark d-flex justify-content-center align-items-center" ><button class="btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-          <div class="col p-0 bg-dark text-white" ><p  class="mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center">do this do that</p></div>
+        <div class="row bg-dark border border-black border-top-0 js-completed">
+          <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
+          <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">do this do that</p></div>
           <div class="col-2 col-lg-1 p-0" style><button type="button" class="btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
           <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
         </div>
