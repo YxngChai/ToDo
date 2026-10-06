@@ -9,13 +9,12 @@ addBtn.addEventListener('click', () =>{
     if(!newInput) {
         return;
     }
-    console.log(newInput);
 
     const newRow = `
     <div class="row bg-light border border-black border-top-0 js-active">
           <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
           <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center"></p></div>
-          <div class="col-2 col-lg-1 p-0" style><button type="button" class="btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
+          <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
           <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger w-100 h-100 rounded-0">Delete</button></div>
     </div>
     `
@@ -44,13 +43,10 @@ document.addEventListener('click', (e) => {
 
     if(!checkButton) return;
 
-    // console.log(checkButton);
 
     const row = checkButton.closest('.row');
 
-    const checkBtn = row.querySelector('.js-check-btn');
     const text =  row.querySelector('.js-text');
-    console.log(text);
 
     if (row.classList.contains('js-active') || row.classList.contains('js-completed')){
 
@@ -58,11 +54,55 @@ document.addEventListener('click', (e) => {
         row.classList.toggle('js-completed');
         row.classList.toggle('bg-light');
         row.classList.toggle('bg-dark');
-        checkBtn.classList.toggle('btn-light');
-        checkBtn.classList.toggle('btn-primary');
+        checkButton.classList.toggle('btn-light');
+        checkButton.classList.toggle('btn-primary');
         text.classList.toggle('text-black');
         text.classList.toggle('text-white');
     } 
-    console.log(row);
+});
 
+// Edit a task
+document.addEventListener('click', (e) => {
+
+    const editButton = e.target.closest('.js-edit-btn');
+
+    if(editButton){ 
+
+    const row = editButton.closest('.row');
+    const text =  row.querySelector('.js-text');
+
+    const currentText = text.textContent;
+
+    text.innerHTML = '<input type="text" class="js-input-update w-100 rounded-3 border border-black">';
+
+    const input = text.querySelector('.js-input-update');
+    input.value = currentText;
+
+
+    editButton.textContent = 'Save';
+    editButton.classList.remove('js-edit-btn');
+    editButton.classList.add('js-save-btn');
+    
+    return;
+    }
+
+
+    // Save after edit
+    const saveButton = e.target.closest('.js-save-btn');
+
+    if(saveButton) {
+
+    const row = saveButton.closest('.row');
+    const text =  row.querySelector('.js-text');
+    const userInput =row.querySelector('.js-input-update');
+
+    
+    text.textContent = userInput.value;
+
+    saveButton.textContent = 'Edit';
+    saveButton.classList.remove('js-save-btn');
+    saveButton.classList.add('js-edit-btn');
+
+    return;
+    }
 });
