@@ -1,7 +1,7 @@
 const listContainer = document.getElementById('js-list-container');
 const addBtn = document.getElementById('js-add-btn');
 const userInput = document.getElementById('js-user-input');
-
+let currentFilter = 'all';
 
 // save in local storage
 function saveLocalStorage() {
@@ -22,6 +22,8 @@ function saveLocalStorage() {
 
 //check storage
 const oldSave = localStorage.getItem('save') ?? null;
+
+
 
 if(oldSave){
     // restore if there is a save and recreated rows
@@ -68,7 +70,111 @@ if(oldSave){
       saveLocalStorage();
 }
 
+function clean() {
+    const rows = document.querySelectorAll('.js-completed, .js-active');
+    rows.forEach((row)=>{row.remove()});
+}
 
+
+
+function render(filter) {
+    const save = JSON.parse(localStorage.getItem('save'));
+
+    switch(filter){
+        case 'all':
+        save.forEach((item, index) => {
+            console.log(item);
+            if(item.completed){
+                const newRow = `
+                        <div data-index="${index}" class="row bg-dark border border-black border-top-0 js-completed">
+                            <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
+                            <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
+                            <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
+                            <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
+                        </div>
+                    `
+                    listContainer.insertAdjacentHTML('beforeend', newRow);
+
+            } else {
+                
+                const newRow = `
+                        <div  data-index="${index}"class="row bg-light border border-black border-top-0 js-active">
+                            <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
+                            <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
+                            <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
+                            <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
+                        </div>
+                    `
+                    listContainer.insertAdjacentHTML('beforeend', newRow);
+            }
+        });
+        break;
+
+        case 'active':
+            save.forEach((item, index) => {
+                if(!item.completed){
+                    const newRow = `
+                            <div data-index="${index}" class="row bg-light border border-black border-top-0 js-active">
+                                <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
+                                <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
+                                <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
+                                <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
+                            </div>
+                        `
+                        listContainer.insertAdjacentHTML('beforeend', newRow);
+
+                } 
+            });
+        break;
+
+        case 'completed':
+            save.forEach((item, index) => {
+            if(item.completed){
+                const newRow = `
+                        <div data-index="${index}" class="row bg-dark border border-black border-top-0 js-completed">
+                            <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
+                            <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
+                            <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
+                            <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
+                        </div>
+                    `
+                    listContainer.insertAdjacentHTML('beforeend', newRow);
+
+            } 
+        });
+        break;
+
+        default: return
+    }
+}
+
+
+// Filters
+
+const allFilter = document.querySelector('.js-filter-all');
+const activeFilter = document.querySelector('.js-filter-active');
+const completedFilter = document.querySelector('.js-filter-completed');
+
+
+allFilter.addEventListener('click', () => {
+    clean();
+    render('all');
+
+    currentFilter = 'all';
+})
+activeFilter.addEventListener('click', () => {
+    clean();
+    render('active');
+
+    currentFilter = 'active';
+})
+completedFilter.addEventListener('click', () => {
+    clean();
+    render('completed');
+
+    currentFilter = 'completed';
+
+})
 
 
 
@@ -81,21 +187,17 @@ addBtn.addEventListener('click', () =>{
         return;
     }
 
-    const newRow = `
-    <div class="row bg-light border border-black border-top-0 js-active">
-          <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-          <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center"></p></div>
-          <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
-          <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger w-100 h-100 rounded-0">Delete</button></div>
-    </div>
-    `
-    listContainer.insertAdjacentHTML('beforeend', newRow);
+    const save = JSON.parse(localStorage.getItem('save'));
 
-    const row = listContainer.lastElementChild;
-    row.querySelector('p').textContent = newInput;
-    userInput.value = '';
 
-    saveLocalStorage();
+    save.push({ 
+        text: newInput,
+        completed: false
+    })
+    localStorage.setItem('save', JSON.stringify(save));
+
+    clean();
+    render(currentFilter);
 
 });
 
@@ -106,9 +208,20 @@ document.addEventListener('click', (e) => {
 
     if (!deleteButton) return;
 
-    deleteButton.closest('.row').remove();
+    const row = deleteButton.closest('.row');
+    const rowIndex = row.dataset.index;
+    console.log(rowIndex);
 
-    saveLocalStorage();
+    row.remove();
+
+
+    const save = JSON.parse(localStorage.getItem('save'));
+    save.splice(rowIndex, 1);
+    localStorage.setItem('save', JSON.stringify(save));
+
+    clean();
+    
+    render(currentFilter);
 })
 
 
@@ -134,9 +247,13 @@ document.addEventListener('click', (e) => {
         text.classList.toggle('text-black');
         text.classList.toggle('text-white');
     } 
-
-    saveLocalStorage();
+    console.log(row.dataset.index);
+    const save = JSON.parse(localStorage.getItem('save'));
+    save[row.dataset.index].completed = !save[row.dataset.index].completed;
+    console.log(save[row.dataset.index].completed);
+    localStorage.setItem('save', JSON.stringify(save));
 });
+
 
 // Edit a task
 document.addEventListener('click', (e) => {
@@ -180,7 +297,9 @@ document.addEventListener('click', (e) => {
     saveButton.classList.remove('js-save-btn');
     saveButton.classList.add('js-edit-btn');
 
-    saveLocalStorage();
+    const save = JSON.parse(localStorage.getItem('save') ?? '[]');
+    save[row.dataset.index].text = userInput.value;
+    localStorage.setItem('save', JSON.stringify(save));
 
     return;
     }
@@ -196,83 +315,4 @@ document.addEventListener('click', (e) => {
 
 })
 
-// Filters
 
-const allFilter = document.querySelector('.js-filter-all');
-const activeFilter = document.querySelector('.js-filter-active');
-const completedFilter = document.querySelector('.js-filter-completed');
-
-function clean() {
-    const rows = document.querySelectorAll('.js-completed, .js-active');
-    rows.forEach((row)=>{row.remove()});
-}
-
-allFilter.addEventListener('click', () => {
-    clean();
-
-    const save = JSON.parse(localStorage.getItem('save'));
-    save.forEach((item) => {
-        if(item.completed){
-            const newRow = `
-                    <div class="row bg-dark border border-black border-top-0 js-completed">
-                    <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                    <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
-                    <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
-                    <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
-                    </div>
-                `
-                listContainer.insertAdjacentHTML('beforeend', newRow);
-
-        } else {
-            
-            const newRow = `
-                    <div class="row bg-light border border-black border-top-0 js-active">
-                    <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                    <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
-                    <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
-                    <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
-                    </div>
-                `
-                listContainer.insertAdjacentHTML('beforeend', newRow);
-        }
-    })
-})
-activeFilter.addEventListener('click', () => {
-    clean();
-
-    const save = JSON.parse(localStorage.getItem('save'));
-    save.forEach((item) => {
-        if(!item.completed){
-            const newRow = `
-                    <div class="row bg-light border border-black border-top-0 js-active">
-                    <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                    <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
-                    <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
-                    <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
-                    </div>
-                `
-                listContainer.insertAdjacentHTML('beforeend', newRow);
-
-        } 
-    })
-
-})
-completedFilter.addEventListener('click', () => {
-    clean();
-
-    const save = JSON.parse(localStorage.getItem('save'));
-    save.forEach((item) => {
-        if(item.completed){
-            const newRow = `
-                    <div class="row bg-dark border border-black border-top-0 js-completed">
-                    <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                    <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
-                    <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
-                    <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
-                    </div>
-                `
-                listContainer.insertAdjacentHTML('beforeend', newRow);
-
-        } 
-    })
-})
