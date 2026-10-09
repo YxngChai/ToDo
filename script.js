@@ -154,18 +154,31 @@ const allFilter = document.querySelector('.js-filter-all');
 const activeFilter = document.querySelector('.js-filter-active');
 const completedFilter = document.querySelector('.js-filter-completed');
 
+function updateSelectedFilter(filter){
+    const previousFilter = document.querySelector('.js-selected');
+    previousFilter.classList.remove('js-selected');
+    previousFilter.classList.remove('py-2');
+
+    filter.classList.add('js-selected');
+    filter.classList.add('py-2');
+}
+
 
 allFilter.addEventListener('click', () => {
     clean();
     render('all');
 
     currentFilter = 'all';
+
+    updateSelectedFilter(allFilter);
 })
 activeFilter.addEventListener('click', () => {
     clean();
     render('active');
 
     currentFilter = 'active';
+
+    updateSelectedFilter(activeFilter)
 })
 completedFilter.addEventListener('click', () => {
     clean();
@@ -173,6 +186,7 @@ completedFilter.addEventListener('click', () => {
 
     currentFilter = 'completed';
 
+    updateSelectedFilter(completedFilter);
 })
 
 
