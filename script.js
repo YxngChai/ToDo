@@ -83,7 +83,6 @@ function render(filter) {
     switch(filter){
         case 'all':
         save.forEach((item, index) => {
-            console.log(item);
             if(item.completed){
                 const newRow = `
                         <div data-index="${index}" class="row bg-dark border border-black border-top-0 js-completed">
@@ -180,8 +179,8 @@ completedFilter.addEventListener('click', () => {
 
 
 // Add new row
-addBtn.addEventListener('click', () =>{
-    const newInput = userInput.value;
+function addRow(){
+     const newInput = userInput.value;
 
     if(!newInput) {
         return;
@@ -198,7 +197,14 @@ addBtn.addEventListener('click', () =>{
 
     clean();
     render(currentFilter);
+}
 
+addBtn.addEventListener('click', addRow );
+
+userInput.addEventListener('keydown', (e)=> {
+    if(e.key === 'Enter') {
+        addRow();
+    }
 });
 
 // delete a row
@@ -211,9 +217,6 @@ document.addEventListener('click', (e) => {
     const row = deleteButton.closest('.row');
     const rowIndex = row.dataset.index;
     console.log(rowIndex);
-
-    row.remove();
-
 
     const save = JSON.parse(localStorage.getItem('save'));
     save.splice(rowIndex, 1);
