@@ -3,22 +3,6 @@ const addBtn = document.getElementById('js-add-btn');
 const userInput = document.getElementById('js-user-input');
 let currentFilter = 'all';
 
-// save in local storage
-function saveLocalStorage() {
-    const newSave = [];
-    const texts = document.querySelectorAll('.js-text');
-    texts.forEach((text) => {
-        const row = text.closest('.row');
-        newSave.push({
-            text: text.textContent,
-            completed: row.classList.contains('js-completed')
-        })
-
-    })
-
-    localStorage.setItem('save', JSON.stringify(newSave));
-}
-
 
 //check storage
 const oldSave = localStorage.getItem('save') ?? null;
@@ -60,14 +44,26 @@ if(oldSave){
     const row = `
         <div data-index="0"class="row bg-light border border-black border-top-0 js-active">
           <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-          <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">Enter a new task</p></div>
+          <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">Check, Edit or Delete</p></div>
           <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
           <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
         </div>
         `
       listContainer.insertAdjacentHTML('beforeend', row);
 
-      saveLocalStorage();
+    // save
+    const newSave = [];
+    const texts = document.querySelectorAll('.js-text');
+    texts.forEach((text) => {
+        const row = text.closest('.row');
+        newSave.push({
+            text: text.textContent,
+            completed: row.classList.contains('js-completed')
+        })
+
+    })
+
+    localStorage.setItem('save', JSON.stringify(newSave));
 }
 
 function clean() {
@@ -191,7 +187,6 @@ completedFilter.addEventListener('click', () => {
 
 
 
-
 // Add new row
 function addRow(){
      const newInput = userInput.value;
@@ -264,10 +259,10 @@ document.addEventListener('click', (e) => {
         text.classList.toggle('text-black');
         text.classList.toggle('text-white');
     } 
-    console.log(row.dataset.index);
+
     const save = JSON.parse(localStorage.getItem('save'));
     save[row.dataset.index].completed = !save[row.dataset.index].completed;
-    console.log(save[row.dataset.index].completed);
+
     localStorage.setItem('save', JSON.stringify(save));
 });
 
