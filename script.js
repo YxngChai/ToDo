@@ -17,24 +17,29 @@ if(oldSave){
             const newRow = `
                     <div data-index="${index}" class="row bg-dark border border-black border-top-0 js-completed">
                     <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                    <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
+                    <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white"></p></div>
                     <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
                     <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
                     </div>
                 `
                 listContainer.insertAdjacentHTML('beforeend', newRow);
 
+                const row = listContainer.lastElementChild;
+                row.querySelector('.js-text').textContent = item.text;
+
         } else {
             
             const newRow = `
                     <div data-index="${index}" class="row bg-light border border-black border-top-0 js-active">
                     <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                    <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
+                    <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black"></p></div>
                     <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
                     <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
                     </div>
                 `
                 listContainer.insertAdjacentHTML('beforeend', newRow);
+                const row = listContainer.lastElementChild;
+                row.querySelector('.js-text').textContent = item.text;
         }
 
     })
@@ -83,24 +88,30 @@ function render(filter) {
                 const newRow = `
                         <div data-index="${index}" class="row bg-dark border border-black border-top-0 js-completed">
                             <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                            <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
+                            <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white"></p></div>
                             <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
                             <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
                         </div>
                     `
                     listContainer.insertAdjacentHTML('beforeend', newRow);
 
+                    const row = listContainer.lastElementChild;
+                    row.querySelector('.js-text').textContent = item.text;
+
             } else {
                 
                 const newRow = `
                         <div  data-index="${index}"class="row bg-light border border-black border-top-0 js-active">
                             <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                            <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
+                            <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black"></p></div>
                             <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
                             <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
                         </div>
                     `
                     listContainer.insertAdjacentHTML('beforeend', newRow);
+
+                    const row = listContainer.lastElementChild;
+                    row.querySelector('.js-text').textContent = item.text;
             }
         });
         break;
@@ -111,12 +122,15 @@ function render(filter) {
                     const newRow = `
                             <div data-index="${index}" class="row bg-light border border-black border-top-0 js-active">
                                 <div class="col-2 col-sm-1 p-2 d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-light rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                                <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black">${item.text}</p></div>
+                                <div class="col p-0" ><p  class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-black"></p></div>
                                 <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
                                 <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
                             </div>
                         `
                         listContainer.insertAdjacentHTML('beforeend', newRow);
+
+                        const row = listContainer.lastElementChild;
+                        row.querySelector('.js-text').textContent = item.text;
 
                 } 
             });
@@ -128,12 +142,15 @@ function render(filter) {
                 const newRow = `
                         <div data-index="${index}" class="row bg-dark border border-black border-top-0 js-completed">
                             <div class="col-2 col-sm-1 p-2  d-flex justify-content-center align-items-center" ><button class="js-check-btn btn btn-primary rounded-5 border border-dark-subtle w-100 h-100"></button></div>
-                            <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white">${item.text}</p></div>
+                            <div class="col p-0 " ><p class="js-text mb-0 px-3 py-2  w-100 h-100 d-flex align-items-center text-white"></p></div>
                             <div class="col-2 col-lg-1 p-0" style><button type="button" class="js-edit-btn  btn btn-secondary  w-100 h-100 rounded-0">Edit</button></div>
                             <div class="col-2 col-lg-1 p-0" ><button type="button" class="js-delete-btn btn btn-danger  w-100 h-100 rounded-0">Delete</button></div>
                         </div>
                     `
                     listContainer.insertAdjacentHTML('beforeend', newRow);
+
+                    const row = listContainer.lastElementChild;
+                    row.querySelector('.js-text').textContent = item.text;
 
             } 
         });
