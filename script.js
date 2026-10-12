@@ -223,6 +223,8 @@ function addRow(){
 
     clean();
     render(currentFilter);
+
+    userInput.value = '';
 }
 
 addBtn.addEventListener('click', addRow );
